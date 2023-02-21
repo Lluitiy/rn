@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { KeyboardAvoidingView, View } from "react-native";
+import { KeyboardAvoidingView, View, Keyboard } from "react-native";
 import { loginForm } from "../data/formFields";
 
 import Btn from "../components/Btn";
