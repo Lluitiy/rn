@@ -1,67 +1,64 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  StyleSheet,
-  View,
-  TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  Alert,
-  Button,
+	ImageBackground,
+	StyleSheet,
+	TouchableWithoutFeedback,
+	View,
+	Keyboard,
 } from "react-native";
-import * as Font from "expo-font";
+
+import Form from "./src/components/Form";
+import LoginScreen from "./src/Screens/LoginScreen";
+import RegistrationScreen from "./src/Screens/RegistrationScreen";
 
 export default function App() {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+	const [isRegister, setIsRegister] = useState(true);
+	const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
-  const nameHandler = (text) => setName(text);
-  const passwordHandler = (text) => setPassword(text);
+	const formTitle = isRegister ? "Регистрация" : "Войти";
+	const formType = isRegister ? "register" : "login";
 
-  const onLogin = () => {
-    Alert.alert("Credentials", `${name} + ${password}`);
-  };
+	const onFormSwitch = () => {
+		setIsRegister(!isRegister);
+	};
 
-  return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-        >
-          <TextInput
-            value={name}
-            onChangeText={nameHandler}
-            placeholder="Username"
-            style={styles.input}
-          />
-          <TextInput
-            value={password}
-            onChangeText={passwordHandler}
-            placeholder="Password"
-            secureTextEntry={true}
-            style={styles.input}
-          />
-          <Button title={"Login"} style={styles.input} onPress={onLogin} />
-        </KeyboardAvoidingView>
-      </View>
-    </TouchableWithoutFeedback>
-  );
+	const hideKeyboard = () => {
+		setIsShowKeyboard(false);
+		Keyboard.dismiss();
+	};
+	return (
+		<View style={styles.container}>
+			<TouchableWithoutFeedback onPress={() => hideKeyboard()}>
+				<ImageBackground
+					style={styles.image}
+					source={require("./assets/BG.png")}
+				>
+					<Form title={formTitle} type={formType}>
+						{isRegister ? (
+							<RegistrationScreen
+								onFormSwitch={onFormSwitch}
+								isShowKeyboard={isShowKeyboard}
+								setIsShowKeyboard={setIsShowKeyboard}
+							/>
+						) : (
+							<LoginScreen
+								onFormSwitch={onFormSwitch}
+								isShowKeyboard={isShowKeyboard}
+								setIsShowKeyboard={setIsShowKeyboard}
+							/>
+						)}
+					</Form>
+				</ImageBackground>
+			</TouchableWithoutFeedback>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#ecf0f1",
-  },
-  input: {
-    width: 200,
-    height: 44,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "black",
-    marginBottom: 10,
-  },
+	container: { flex: 1 },
+	image: {
+		flex: 1,
+		resizeMode: "cover",
+		justifyContent: "flex-end",
+	},
 });
