@@ -1,12 +1,8 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Button, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 const SwitchForm = ({ text, onSwitch }) => {
 	return (
-		<TouchableOpacity
-			activeOpacity={0.8}
-			onPress={onSwitch}
-			style={styles.btn}
-		>
+		<TouchableOpacity onPress={onSwitch} style={styles.btn} title={text}>
 			<Text style={styles.text}>{text}</Text>
 		</TouchableOpacity>
 	);

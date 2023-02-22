@@ -35,7 +35,7 @@ const Input = ({ input, val, setter, setIsShowKeyboard }) => {
 
 	const isPass = input.type === "Password";
 	return (
-		<View style={styles.wrapper} key={input.key}>
+		<View style={styles.wrapper}>
 			<TextInput
 				onFocus={() => onFocus()}
 				onBlur={() => onBlur()}
@@ -43,7 +43,7 @@ const Input = ({ input, val, setter, setIsShowKeyboard }) => {
 				onChangeText={(e) => onChange(e)}
 				placeholderTextColor={"#BDBDBD"}
 				style={{ borderColor: focusBorder, ...styles.input }}
-				placeholder={`${input.placeholder}`}
+				placeholder={input.placeholder}
 				secureTextEntry={isPass && isShowPass ? true : false}
 			/>
 
@@ -53,7 +53,9 @@ const Input = ({ input, val, setter, setIsShowKeyboard }) => {
 					onPress={onShow}
 					activeOpacity={0.7}
 				>
-					<Text style={styles.showText}>Показать</Text>
+					<Text style={styles.showText}>
+						{isShowPass ? "Скрыть" : "Показать"}
+					</Text>
 				</TouchableOpacity>
 			)}
 		</View>
