@@ -5,8 +5,6 @@ import {
 	View,
 	Text,
 	TouchableOpacity,
-	Keyboard,
-	TouchableWithoutFeedback,
 } from "react-native";
 
 const Input = ({ input, val, setter, setIsShowKeyboard }) => {
